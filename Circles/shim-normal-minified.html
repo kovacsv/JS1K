@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+	<head>
+		<title>JS1k, [COMPO] demo submission [ID]</title>
+		<meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; padding: 0; border: 0; }
+      #c { display: block; } /* kill scrollbars from hell */
+    </style>
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+		<script>
+			var a = document.getElementsByTagName('canvas')[0];
+			var b = document.body;
+      var d = function(e){ return function(){ e.parentNode.removeChild(e); }; }(a);
+      // unprefix some popular vendor prefixed things (but stick to their original name)
+      var AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+      var requestAnimationFrame =
+        window.requestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(f){ setTimeout(f, 1000/30); };
+      // stretch canvas to screen size (once, wont onresize!)
+      a.style.width = (a.width = innerWidth) + 'px';
+      a.style.height = (a.height = innerHeight) + 'px';
+
+      var c = a.getContext('2d');
+		</script>
+		<script>
+// start of submission //
+function G(j,b,t,o){function e(p,z){this.x=p;this.y=z}function m(z,y,p){var x=new e(y*Math.cos(p),y*Math.sin(p));return new e(x.x+z.x,x.y+z.y)}function u(A,x,y,z,B,p){return m(m(A,x-y,B),z,p)}oc.clearRect(0,0,w,h);var l=0.017453292519943;var v=new e(w/2,h/2);var n=0;var g=0;var k=1;var q=k*(1/o);var f=u(v,j,b,t,g,n);oc.beginPath();oc.moveTo(f.x,f);for(i=0;i<=360*(1/q);i++){f=u(v,j,b,t,g,n);oc.lineTo(f.x,f.y);g-=k*l;n-=q*l}oc.stroke();c.clearRect(0,0,w,h);c.drawImage(ocn,0,0,w,h);return true}function D(){G(gr,sr,gr/3,r);r=r+s;d=r<20+s;if(d){requestAnimationFrame(D)}}window.onclick=function(){function b(g,e){return Math.floor((Math.random()*(e-g+1))+g)}r=0.1;gr=b(w/20,w/6);sr=b(w/40,w/3);if(!d){D()}};var w=a.width;var h=a.height;var d=0;var gr=w/5;var sr=gr/4;var s=0.05;var r=0.1;var ocn=document.createElement("canvas");ocn.width=w;ocn.height=h;var oc=ocn.getContext("2d");D();
+// end of submission //
+		</script>
+	</body>
+</html>

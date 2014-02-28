@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+	<head>
+		<title>JS1k, [COMPO] demo submission [ID]</title>
+		<meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; padding: 0; border: 0; }
+      #c { display: block; } /* kill scrollbars from hell */
+    </style>
+	</head>
+	<body>
+		<canvas id="c"></canvas>
+		<script>
+			var a = document.getElementsByTagName('canvas')[0];
+			var b = document.body;
+      var d = function(e){ return function(){ e.parentNode.removeChild(e); }; }(a);
+      // unprefix some popular vendor prefixed things (but stick to their original name)
+      var AudioContext =
+        window.AudioContext ||
+        window.webkitAudioContext;
+      var requestAnimationFrame =
+        window.requestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function(f){ setTimeout(f, 1000/30); };
+      // stretch canvas to screen size (once, wont onresize!)
+      a.style.width = (a.width = innerWidth) + 'px';
+      a.style.height = (a.height = innerHeight) + 'px';
+
+      var c = a.getContext('2d');
+		</script>
+		<script>
+// start of submission //
+			var DegRad = 0.017453292519943;
+
+			function Coord (x, y) {
+				this.x = x;
+				this.y = y;
+			}
+
+			function CoordAdd (a, b)
+			{
+				return new Coord (a.x + b.x, a.y + b.y);
+			}
+
+			function PolarToCartesian (radius, theta)
+			{
+				return new Coord (radius * Math.cos (theta), radius * Math.sin (theta));
+			}
+
+			function GetArcLengthFromAngle (radius, theta)
+			{
+				return theta * radius;
+			}
+
+			function PolarToCartesianWithCenter (center, radius, angle)
+			{
+				var result = PolarToCartesian (radius, angle);
+				result = CoordAdd (result, center);
+				return result;
+			}
+
+			function GetControlPosition (greatCenter, greatRadius, smallRadius, controlRadius, rotationAngle, controlAngle)
+			{
+				var radiusDiff = greatRadius - smallRadius;
+				var smallCenter = PolarToCartesianWithCenter (greatCenter, radiusDiff, rotationAngle);
+
+				var greatArcLength = GetArcLengthFromAngle (greatRadius, rotationAngle);
+				var controlPosition = PolarToCartesianWithCenter (smallCenter, controlRadius, controlAngle);
+				
+				return controlPosition;
+			}
+
+			function GenerateCircles (greatRadius, smallRadius, controlRadius, rotationSpeed)
+			{
+				var greatCenter = new Coord (a.width / 2, a.height / 2);
+
+				var controlAngle = 0.0;
+				
+				var rotationAngle = 0.0 * DegRad;
+				offscreenContext.clearRect (0, 0, a.width, a.height);
+				
+				var angleStep = 1.0;
+				var controlStep = angleStep * (1.0 / rotationSpeed);
+				var firstPosition = GetControlPosition (greatCenter, greatRadius, smallRadius, controlRadius, rotationAngle, controlAngle);
+				offscreenContext.beginPath ();
+				offscreenContext.moveTo (firstPosition.x, firstPosition.y);
+				var i, controlPosition;
+				for (i = 0; i <= 360 * (1.0 / controlStep); i++) {
+					controlPosition = GetControlPosition (greatCenter, greatRadius, smallRadius, controlRadius, rotationAngle, controlAngle);
+					offscreenContext.lineTo (controlPosition.x, controlPosition.y);
+					rotationAngle -= angleStep * DegRad;
+					controlAngle -= controlStep * DegRad;
+				}
+
+				offscreenContext.stroke ();
+				c.clearRect (0, 0, a.width, a.height);
+				c.drawImage (offscreenCanvas, 0, 0, a.width, a.height);				
+				return true;
+			}
+
+			function Draw ()
+			{
+				GenerateCircles (greatRadius, smallRadius, greatRadius / 3, speed);
+				speed = speed + step;
+				draw = speed < maxSpeed + step;
+				if (draw) {					
+					requestAnimationFrame (Draw);
+				}
+			}
+			
+			window.onclick = function ()
+			{
+				function RandomInt (from, to)
+				{
+					return Math.floor ((Math.random () * (to - from + 1)) + from); 
+				}
+				
+				speed = 0.1;
+				greatRadius = RandomInt (100, a.width / 5);
+				smallRadius = RandomInt (50, a.width / 3);
+				if (!draw) {
+					Draw ();
+				}
+			};
+			
+			var draw = false;
+			var maxSpeed = 20;
+			var step = 0.05;
+			var speed = 0.1;
+
+			var greatRadius = a.width / 5;
+			var smallRadius = greatRadius / 4;
+			
+			var offscreenCanvas = document.createElement ('canvas');
+			offscreenCanvas.width = a.width;
+			offscreenCanvas.height = a.height;
+			var offscreenContext = offscreenCanvas.getContext ('2d'); 				
+			Draw ();
+// end of submission //
+		</script>
+	</body>
+</html>
