@@ -8,7 +8,7 @@ function R ()
 		eyeDistance = sqrt (27),
 		eyeDirection = 3 / eyeDistance,
 		dirWithAspect = eyeDirection * 2 / w * h,
-		matrix = [
+		matrix = [ // projection matrix * model view matrix
 			-dirWithAspect, -2 / 3, eyeDirection, -eyeDirection,
 			dirWithAspect, -2 / 3, eyeDirection, -eyeDirection,
 			0, 4 / 3, eyeDirection, -eyeDirection,
@@ -24,8 +24,8 @@ function R ()
 			'0F2H0G3F0H1GF3I2G1I3H2I1', // hexahedron
 			'0JLGR0RTFN0NPHJFK2PNFT3MKGL1QOGO3TRHP2USHS1LJ3OQIM2KMIU1SUIQ' // dodecahedron
 		],
-		polygons = shapes[s],
-		polygonSides = s < 3 ? 3 : s + 1,
+		polygons = shapes[s], // polygons of the current shape
+		polygonSides = s < 3 ? 3 : s + 1, // polygon vertex count of the current shape
 		si = sin (r),
 		co = cos (r),
 		i = polygons.length / polygonSides,
