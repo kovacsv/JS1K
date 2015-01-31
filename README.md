@@ -6,7 +6,7 @@ My js1k submissions. More info at http://www.js1k.com.
 
 Submission URL: ...
 
-An applications which can render 3D platonic solids. All these things are fit in 1024 bytes:
+An applications which can render platonic solids. All these things are fit in 1024 bytes:
 - Geometrically correct representation of all platonic solids:
  - tetrahedron
  - octahedron
