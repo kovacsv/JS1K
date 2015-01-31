@@ -21,4 +21,4 @@ An applications which can render all platonic solids. All of these things are fi
 
 Submission URL: http://js1k.com/2014-dragons/demo/1755
 
-An application which show randomly generated circular shapes.
+An application which can show randomly generated circular shapes.
