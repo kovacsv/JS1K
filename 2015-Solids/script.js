@@ -74,19 +74,3 @@ b.onclick = function ()
 	s = ++s % 5;
 };
 R ();
-
-//b.onmousedown = function (e)
-//{
-//	m = e.clientX;
-//};
-//b.onmousemove = function (e)
-//{
-//	if (m) {
-//		r += (e.clientX - m) * 0.005;
-//		m = e.clientX;
-//	}
-//};
-//b.onmouseup = function (e)
-//{
-//	m = null;
-//};
