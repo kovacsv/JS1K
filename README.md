@@ -8,10 +8,10 @@ Submission URL: ...
 
 An applications which can render all platonic solids. All of these things are fit in 1024 bytes:
 - Geometrically correct representation of all platonic solids:
- - tetrahedron
- - octahedron
- - hexahedron
- - dodecahedron
+ - tetrahedron,
+ - octahedron,
+ - hexahedron,
+ - dodecahedron,
  - icosahedron.
 - Perspective projection.
 - Visible surface determination.
