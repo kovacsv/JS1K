@@ -4,7 +4,7 @@ My js1k submissions. More info at http://www.js1k.com.
 
 ### 2015 - Platonic Solids
 
-Submission URL: ...
+Submission URL: http://js1k.com/2015-hypetrain/demo/2120
 
 An applications which can render all platonic solids. All of these things are fit in 1024 bytes:
 - Geometrically correct representation of all platonic solids:
