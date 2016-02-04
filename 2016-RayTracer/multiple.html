@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+    <title>Example</title>
+
+	<style>
+		canvas
+		{
+			display : block;
+			float : left;
+			margin : 5px;
+		}
+	</style>
+	
+	<script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript">
+		window.onload = function()
+		{
+			var i, canvas, context;
+			for (i = 0; i < 10; i++) {
+				canvas = document.createElement ('canvas');
+				canvas.width = 512;
+				canvas.height = 512;
+				document.body.appendChild (canvas);
+				context = canvas.getContext ('2d');
+				R (context);
+			}
+			
+        };
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
