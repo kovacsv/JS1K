@@ -75,7 +75,7 @@
 					// do the shading for intersection point (no shading for the large sphere)
 					shadedColor = RayModelIntersection (intersectionPoint, Normalize (Sub (lightPosition, intersectionPoint))) ?
 						blackColor : // in shadow
-						intersection.i ?
+						intersection.i ? // not the first large sphere
 							Mul (
 								geometry[intersection.i + 2], // sphere color
 								M.max (
@@ -86,7 +86,7 @@
 									0.0
 								) // diffuse intensity
 							) :
-							backgroundColor; // first sphere
+							backgroundColor; // first large sphere
 				}
 				tracedColor = Add (tracedColor, Mul (shadedColor, 1 / sampleCount));
 			}
