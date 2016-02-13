@@ -191,7 +191,12 @@
 			currentSample = sampleCount;
 			// shoot random rays through the pixel
 			while (currentSample--) {
-				rayDirection = Normalize (Sub (Vector (0, halfCanvasSize - columnIndex + myRandom (), halfCanvasSize - rowIndex + myRandom ()), eyePosition));			
+				rayDirection = Normalize (
+					Sub (
+						Vector (0, halfCanvasSize - columnIndex + myRandom (), halfCanvasSize - rowIndex + myRandom ()),
+						eyePosition
+					)
+				);
 				intersection = RayModelIntersection (eyePosition, rayDirection);
 				shadedColor = backgroundColor;
 				if (intersection) {
