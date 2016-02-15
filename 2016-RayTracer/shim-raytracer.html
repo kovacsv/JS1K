@@ -223,7 +223,7 @@
 				imageData.data[imageDataIndex++] = tracedColor[componentIndex] * 255;
 			}
 		}
-		context.putImageData (imageData, 0, rowIndex);
+		context.putImageData (imageData, 1, rowIndex);
 		if (rowIndex++ < canvasSize) {
 			setTimeout (RenderRowsOneStep, 0);
 		}
