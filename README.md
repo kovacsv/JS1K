@@ -2,6 +2,12 @@
 
 My js1k submissions. More info at http://www.js1k.com.
 
+### 2016 - Element Tracer
+
+Submission URL: http://js1k.com/2016-elemental/demo/2448
+
+A sphere based raytracer. It generates random spheres on reload.
+
 ### 2015 - Platonic Solids
 
 Submission URL: http://js1k.com/2015-hypetrain/demo/2120
