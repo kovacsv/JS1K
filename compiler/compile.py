@@ -1,12 +1,12 @@
+import sys
 import os
 import shutil
 import subprocess
 import re
 
-def Minify (command):
+def Minify (scriptFile):
+	command = 'java -jar compiler.jar --js ' + scriptFile
 	result = subprocess.check_output (command, shell = True)
-	print result
-	print len (result)
 	return result
 
 def WriteToFile (fileName, content):
@@ -26,15 +26,22 @@ def WriteToShim (shimFileName, newShimFileName, scriptFileName):
 	replaced = re.sub (r'(// THIS IS WHERE YOUR DEMO GOES).*(// END)', r'\1\n' + scriptContent + r'\2', shimContent, flags = re.DOTALL)
 	newShimFile.write (replaced)
 	newShimFile.close ()
+
+currentPath = os.path.dirname (os.path.abspath (__file__))
+os.chdir (currentPath)
 	
-scriptFile = 'script.js'
-minScriptFile = 'script-min.js'
-shimFileName = 'shim-original.html'
-newShimFileName = 'shim-raytracer.html'
-newShimMinFileName = 'shim-raytracer-min.html'
+scriptFile = os.path.abspath (sys.argv[1])
+originalShim = os.path.abspath (sys.argv[2])
 
-minified = Minify ('java -jar ..\compiler\compiler.jar --js ' + scriptFile)
+minified = Minify (scriptFile)
+print minified
+print len (minified)
+
+destFolder = os.path.join (os.path.dirname (scriptFile), 'build')
+if not os.path.exists (destFolder):
+	os.makedirs (destFolder)
+
+minScriptFile = os.path.join (destFolder, 'script-min.js')
 WriteToFile (minScriptFile, minified)
-
-WriteToShim (shimFileName, newShimFileName, scriptFile)
-WriteToShim (shimFileName, newShimMinFileName, minScriptFile)
+WriteToShim (originalShim, os.path.join (destFolder, 'shim-result.html'), scriptFile)
+WriteToShim (originalShim, os.path.join (destFolder, 'shim-result-min.html'), minScriptFile)
