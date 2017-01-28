@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+
+<head>
+    <title>Example</title>
+
+	<style>
+		html, body
+		{
+			margin : 0px;
+			padding : 0px;
+			width : 100%;
+			height : 100%;
+		}
+		
+		canvas
+		{
+			width : 100%;
+			height : 100%;
+			display : block;
+		}
+	</style>	
+</head>
+
+<body>
+	<canvas id="canvas">
+</body>
+
+<script type="text/javascript">
+	var a = document.getElementById ('canvas');
+	a.width = window.innerWidth;
+	a.height = window.innerHeight;
+	var c = a.getContext ('2d');
+</script>
+<script type="text/javascript" src="script.js"></script>
+
+</html>
