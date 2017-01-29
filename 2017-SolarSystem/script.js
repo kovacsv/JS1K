@@ -61,8 +61,7 @@
 
 	setInterval (function () {
 		var n = planets.length, i, j, aPlanet, bPlanet,
-		directionX, directionY, speed,
-		survivedPlanets, absorber, absorbed;
+		speed, survivedPlanets, absorber, absorbed;
 		
 		// calculate the new motion vector for all planets
 		for (i = n; i--;) {
@@ -71,11 +70,9 @@
 			for (j = n; j--;) {
 				if (i - j) { // i != j
 					bPlanet = planets[j];
-					directionX = bPlanet.x - aPlanet.x;
-					directionY = bPlanet.y - aPlanet.y;
 					CalculateDistance (bPlanet, aPlanet);
 					speed = (aPlanet.s * bPlanet.s) / (distance * distance);
-					Add (aPlanet.m, Coord (directionX / distance * speed, directionY / distance * speed));
+					Add (aPlanet.m, Coord ((bPlanet.x - aPlanet.x) / distance * speed, (bPlanet.y - aPlanet.y) / distance * speed));
 				}
 			}
 		}
