@@ -24,11 +24,10 @@
 		return {
 			x : xPosition, // x position of the planet
 			y : yPosition, // y position of the planet
-			r : radius, // radius of the planet
+			r : radius, // radius of the planet, 0 if planet is not alive anymore
 			m : motion, // self motion of the planet
 			s : mass || radius / 5, // mass of the planet for gravity calculation
-			c : color || '#08b', // color of the planet
-			l : 1 // is the planet still alive
+			c : color || '#08b' // color of the planet
 		}
 	}
 	
@@ -45,7 +44,13 @@
 			Planet (width / 2, height / 2 + 200, 8, Coord (1, 0))
 		],
 		edited, mouseX, mouseY, distance;
-		
+	
+	// test
+	//planets = [
+	//	Planet (100, 100, 10, Coord (1.5, 0), 10),
+	//	Planet (600, 100, 10, Coord (-1.5, 0), 10)
+	//];	
+	
 	canvas.onclick = function (ev) {
 		UpdateMouseCoordinates (ev);
 		if (edited) {
@@ -61,15 +66,15 @@
 
 	setInterval (function () {
 		var n = planets.length, i, j, aPlanet, bPlanet,
-		speed, survivedPlanets, absorber, absorbed;
+		speed, absorber, absorbed;
 		
 		// calculate the new motion vector for all planets
 		for (i = n; i--;) {
 			aPlanet = planets[i];
 			// add gravitational movement
 			for (j = n; j--;) {
-				if (i - j) { // i != j
-					bPlanet = planets[j];
+				bPlanet = planets[j];
+				if (aPlanet.r && bPlanet.r && i - j) { // i != j
 					CalculateDistance (bPlanet, aPlanet);
 					speed = (aPlanet.s * bPlanet.s) / (distance * distance);
 					Add (aPlanet.m, Coord ((bPlanet.x - aPlanet.x) / distance * speed, (bPlanet.y - aPlanet.y) / distance * speed));
@@ -83,14 +88,13 @@
 		}
 		
 		// handle planet collisions and delete absorbed planets
-		survivedPlanets = [];
 		for (i = n; i--;) {
 			aPlanet = planets[i];
 			for (j = n; j-- > i + 1;) {
 				bPlanet = planets[j];
 				// absorb happens when the planets are too close to each other
 				CalculateDistance (bPlanet, aPlanet);
-				if (aPlanet.l && bPlanet.l && distance < aPlanet.r + bPlanet.r) {
+				if (aPlanet.r && bPlanet.r && distance < aPlanet.r + bPlanet.r) {
 					// the absorved planet is the one with smaller mass
 					absorbed = (aPlanet.s < bPlanet.s ? aPlanet : bPlanet);
 					absorber = (absorbed == aPlanet ? bPlanet : aPlanet);
@@ -104,14 +108,10 @@
 						absorber.m.y /= 2;
 					}
 					// the absorbed planet is now dead
-					absorbed.l = 0;
+					absorbed.r = 0;
 				}
 			}
-			if (aPlanet.l) {
-				survivedPlanets.push (aPlanet);
-			}
 		}
-		planets = survivedPlanets;
 
 		// now draw all the planets
 		context.fillStyle = '#222';
@@ -120,7 +120,7 @@
 		// although the edited planet sometimes drawn twice
 		for (i = n + 1; i--;) {
 			aPlanet = planets[i] || edited;
-			if (aPlanet) {
+			if (aPlanet && aPlanet.r) {
 				context.beginPath ();
 				context.fillStyle = aPlanet.c;
 				context.arc (aPlanet.x, aPlanet.y, aPlanet.r, 0, 7 /* 2 * Math.PI :) */);
@@ -132,7 +132,7 @@
 					context.stroke ();
 				}
 			}
-		}		
+		}
 	}, 10);
 }
 S (a, c);
