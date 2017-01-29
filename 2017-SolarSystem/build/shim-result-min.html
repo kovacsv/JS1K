@@ -124,8 +124,8 @@
     </script>
     <script type="demo">
       // THIS IS WHERE YOUR DEMO GOES
-function S(q,h){function u(f,e){f&&e&&(f.x+=e.x,f.y+=e.y)}function y(f,e){var g=f.x-e.x,b=f.y-e.y;return z.sqrt(g*g+b*b)}function v(f,e,g,b,d,h){return{x:f,y:e,r:g,m:b,s:d||g/5,c:h||"#08b",l:1}}function A(f){r=f.pageX;t=f.pageY}var w=q.width,x=q.height,z=Math,k=[v(w/2,x/2,20,0,200,"#fc3"),v(w/2,x/2+200,8,{x:1,y:0})],l,r,t;q.onclick=function(f){A(f);l?(l.m={x:(r-l.x)/99,y:(t-l.y)/99},k.push(l),l=0):l=v(r,t,5*z.random()+5)};q.onmousemove=A;setInterval(function(){var f=k.length,e,g,b,d,n,m,p;for(e=f;e--;)for(b=
-k[e],g=f;g--;)e-g&&(d=k[g],n=d.x-b.x,m=d.y-b.y,p=y(d,b),d=b.s*d.s/(p*p),u(b.m,{x:n/p*d,y:m/p*d}));for(e=f;e--;)u(k[e],k[e].m);n=[];for(e=f;e--;){b=k[e];for(g=f;g-- >e+1;)d=k[g],b.l&&d.l&&y(d,b)<b.r+d.r&&(m=b.s<d.s?b:d,d=m==b?d:b,d.r+=m.r/2,d.s+=m.s/2,u(d.m,m.m),d.m&&(d.m.x/=2,d.m.y/=2),m.l=0);b.l&&n.push(b)}k=n;h.fillStyle="#222";h.fillRect(0,0,w,x);for(e=f+1;e--;)if(b=k[e]||l)h.beginPath(),h.fillStyle=b.c,h.arc(b.x,b.y,b.r,0,7),h.fill(),b==l&&(h.strokeStyle=b.c,h.moveTo(b.x,b.y),h.lineTo(r,t),h.stroke())},
+function S(q,h){function u(f,e){f&&e&&(f.x+=e.x,f.y+=e.y)}function y(f,e){var g=f.x-e.x,b=f.y-e.y;n=Math.sqrt(g*g+b*b)}function v(f,e,g,b,d,h){return{x:f,y:e,r:g,m:b,s:d||g/5,c:h||"#08b",l:1}}function z(f){r=f.pageX;t=f.pageY}var w=q.width,x=q.height,k=[v(w/2,x/2,20,0,200,"#fc3"),v(w/2,x/2+200,8,{x:1,y:0})],l,r,t,n;q.onclick=function(f){z(f);l?(l.m={x:(r-l.x)/99,y:(t-l.y)/99},k.push(l),l=0):l=v(r,t,5*Math.random()+5)};q.onmousemove=z;setInterval(function(){var f=k.length,e,g,b,d,p,m;for(e=f;e--;)for(b=
+k[e],g=f;g--;)e-g&&(d=k[g],p=d.x-b.x,m=d.y-b.y,y(d,b),d=b.s*d.s/(n*n),u(b.m,{x:p/n*d,y:m/n*d}));for(e=f;e--;)u(k[e],k[e].m);p=[];for(e=f;e--;){b=k[e];for(g=f;g-- >e+1;)d=k[g],y(d,b),b.l&&d.l&&n<b.r+d.r&&(m=b.s<d.s?b:d,d=m==b?d:b,d.r+=m.r/2,d.s+=m.s/2,u(d.m,m.m),d.m&&(d.m.x/=2,d.m.y/=2),m.l=0);b.l&&p.push(b)}k=p;h.fillStyle="#222";h.fillRect(0,0,w,x);for(e=f+1;e--;)if(b=k[e]||l)h.beginPath(),h.fillStyle=b.c,h.arc(b.x,b.y,b.r,0,7),h.fill(),b==l&&(h.strokeStyle=b.c,h.moveTo(b.x,b.y),h.lineTo(r,t),h.stroke())},
 10)}S(a,c);
 // END
     </script>

@@ -139,10 +139,10 @@
 		}
 	}
 	
-	function Distance (a, b)
+	function CalculateDistance (a, b)
 	{
 		var aDiff = a.x - b.x, bDiff = a.y - b.y;
-		return M.sqrt (aDiff * aDiff + bDiff * bDiff);
+		distance = Math.sqrt (aDiff * aDiff + bDiff * bDiff);
 	}
 
 	function Planet (xPosition, yPosition, radius, motion, mass, color)
@@ -166,12 +166,11 @@
 	
 	var width = canvas.width,
 		height = canvas.height,
-		M = Math,
 		planets = [
 			Planet (width / 2, height / 2, 20, 0, 200, '#fc3'),
 			Planet (width / 2, height / 2 + 200, 8, Coord (1, 0))
 		],
-		edited, mouseX, mouseY;
+		edited, mouseX, mouseY, distance;
 		
 	canvas.onclick = function (ev) {
 		UpdateMouseCoordinates (ev);
@@ -180,7 +179,7 @@
 			planets.push (edited);
 			edited = 0;
 		} else {
-			edited = Planet (mouseX, mouseY, M.random () * 5 + 5);
+			edited = Planet (mouseX, mouseY, Math.random () * 5 + 5);
 		}
 	}
 	
@@ -188,7 +187,7 @@
 
 	setInterval (function () {
 		var n = planets.length, i, j, aPlanet, bPlanet,
-		directionX, directionY, distance, speed,
+		directionX, directionY, speed,
 		survivedPlanets, absorber, absorbed;
 		
 		// calculate the new motion vector for all planets
@@ -200,7 +199,7 @@
 					bPlanet = planets[j];
 					directionX = bPlanet.x - aPlanet.x;
 					directionY = bPlanet.y - aPlanet.y;
-					distance = Distance (bPlanet, aPlanet);
+					CalculateDistance (bPlanet, aPlanet);
 					speed = (aPlanet.s * bPlanet.s) / (distance * distance);
 					Add (aPlanet.m, Coord (directionX / distance * speed, directionY / distance * speed));
 				}
@@ -219,7 +218,8 @@
 			for (j = n; j-- > i + 1;) {
 				bPlanet = planets[j];
 				// absorb happens when the planets are too close to each other
-				if (aPlanet.l && bPlanet.l && Distance (bPlanet, aPlanet) < aPlanet.r + bPlanet.r) {
+				CalculateDistance (bPlanet, aPlanet);
+				if (aPlanet.l && bPlanet.l && distance < aPlanet.r + bPlanet.r) {
 					// the absorved planet is the one with smaller mass
 					absorbed = (aPlanet.s < bPlanet.s ? aPlanet : bPlanet);
 					absorber = (absorbed == aPlanet ? bPlanet : aPlanet);
