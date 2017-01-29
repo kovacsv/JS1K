@@ -41,6 +41,10 @@
 	var width = canvas.width,
 		height = canvas.height,
 		M = Math,
+		planets = [
+			Planet (width / 2, height / 2, 20, 0, 200, '#fc3'),
+			Planet (width / 2, height / 2 + 200, 8, Coord (1, 0))
+		],
 		edited, mouseX, mouseY;
 		
 	canvas.onclick = function (ev) {
@@ -55,15 +59,10 @@
 	}
 	
 	canvas.onmousemove = UpdateMouseCoordinates;
-	
-	var planets = [
-		Planet (width / 2, height / 2, 20, 0, 200, '#fc3'),
-		Planet (width / 2, height / 2 + 200, 8, Coord (1, 0))
-	];
-	
+
 	setInterval (function () {
 		var n = planets.length, i, j, aPlanet, bPlanet,
-		directionX, directionY, dirLength, distance, speed,
+		directionX, directionY, distance, speed,
 		survivedPlanets, absorber, absorbed;
 		
 		// calculate the new motion vector for all planets
@@ -75,10 +74,9 @@
 					bPlanet = planets[j];
 					directionX = bPlanet.x - aPlanet.x;
 					directionY = bPlanet.y - aPlanet.y;
-					dirLength = M.sqrt (directionX * directionX + directionY * directionY);
 					distance = Distance (bPlanet, aPlanet);
 					speed = (aPlanet.s * bPlanet.s) / (distance * distance);
-					Add (aPlanet.m, Coord (directionX / dirLength * speed, directionY / dirLength * speed));
+					Add (aPlanet.m, Coord (directionX / distance * speed, directionY / distance * speed));
 				}
 			}
 		}
