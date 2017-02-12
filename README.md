@@ -2,6 +2,12 @@
 
 My js1k submissions. More info at http://www.js1k.com.
 
+### 2017 - Solar System
+
+Submission URL: http://js1k.com/2017-magic/demo/2679
+
+A solary system simulator. One click to place new planet, another click to define speed and direction. Try to create as many orbiting planets as you can. 
+
 ### 2016 - Element Tracer
 
 Submission URL: http://js1k.com/2016-elemental/demo/2448
